@@ -2101,13 +2101,21 @@ PYBIND11_MODULE(store, m) {
             },
             py::arg("mem_pool_size"), py::arg("local_buffer_size"),
             py::arg("server_address"))
-        .def("init_all",
-             [](MooncakeStorePyWrapper &self, const std::string &protocol,
-                const std::string &device_name,
-                size_t mount_segment_size = 1024 * 1024 * 16) {
-                 return self.store_->initAll(protocol, device_name,
-                                             mount_segment_size);
-             })
+        .def(
+            "init_all",
+            [](MooncakeStorePyWrapper &self, const std::string &protocol,
+               const std::string &device_name,
+               size_t mount_segment_size = 1024 * 1024 * 16) {
+                if (PyErr_WarnEx(
+                        PyExc_DeprecationWarning,
+                        "init_all() is deprecated; use setup() instead",
+                        1) < 0) {
+                    throw py::error_already_set();
+                }
+                return self.store_->initAll(protocol, device_name,
+                                            mount_segment_size);
+            },
+            "Deprecated: use setup() instead.")
         .def("mount_segment", &MooncakeStorePyWrapper::mount_segment,
              py::arg("path"), py::arg("size"), py::arg("offset") = 0,
              py::arg("protocol") = "tcp", py::arg("location") = "")

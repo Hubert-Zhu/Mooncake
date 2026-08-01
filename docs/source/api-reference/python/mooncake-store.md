@@ -1654,6 +1654,10 @@ def alloc_from_mem_pool(self, size: int) -> int
 
 ---
 #### init_all()
+
+> **Deprecated:** Use [`setup()`](#setup) instead. `init_all()` relies on
+> hard-coded local endpoints and will be removed in a future release.
+
 Initialize all resources with specified protocol and device.
 
 ```python

@@ -234,9 +234,9 @@ class PyClient {
                             const std::string &server_address,
                             const std::string &ipc_socket_path) = 0;
 
-    virtual int initAll(const std::string &protocol,
-                        const std::string &device_name,
-                        size_t mount_segment_size) = 0;
+    [[deprecated("use setup_real instead")]] virtual int initAll(
+        const std::string &protocol, const std::string &device_name,
+        size_t mount_segment_size) = 0;
 
     virtual uint64_t alloc_from_mem_pool(size_t size) = 0;
 

@@ -18,6 +18,14 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#if defined(__GNUC__) || defined(__clang__)
+#define MOONCAKE_STORE_DEPRECATED(message) __attribute__((deprecated(message)))
+#elif defined(_MSC_VER)
+#define MOONCAKE_STORE_DEPRECATED(message) __declspec(deprecated(message))
+#else
+#define MOONCAKE_STORE_DEPRECATED(message)
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -56,6 +64,7 @@ int mooncake_store_setup(mooncake_store_t store, const char *local_hostname,
                          const char *device_name,
                          const char *master_server_addr);
 
+MOONCAKE_STORE_DEPRECATED("use mooncake_store_setup instead")
 int mooncake_store_init_all(mooncake_store_t store, const char *protocol,
                             const char *device_name,
                             uint64_t mount_segment_size);
@@ -128,5 +137,7 @@ int mooncake_store_unregister_buffer(mooncake_store_t store, void *buffer);
 #ifdef __cplusplus
 }
 #endif
+
+#undef MOONCAKE_STORE_DEPRECATED
 
 #endif  // MOONCAKE_STORE_C_H

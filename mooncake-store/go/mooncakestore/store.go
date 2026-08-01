@@ -80,6 +80,8 @@ func (s *Store) Setup(localHostname, metadataServer string,
 }
 
 // InitAll mounts additional memory segments after setup.
+//
+// Deprecated: use Setup instead.
 func (s *Store) InitAll(protocol, deviceName string, mountSegmentSize uint64) error {
 	if s.handle == nil {
 		return ErrStoreNil

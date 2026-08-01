@@ -42,8 +42,9 @@ class DummyClient : public PyClient {
                     const std::string &server_address,
                     const std::string &ipc_socket_path);
 
-    int initAll(const std::string &protocol, const std::string &device_name,
-                size_t mount_segment_size) {
+    [[deprecated("use setup_dummy instead")]] int initAll(
+        const std::string &protocol, const std::string &device_name,
+        size_t mount_segment_size) {
         // Dummy client does not support real setup
         return -1;
     }

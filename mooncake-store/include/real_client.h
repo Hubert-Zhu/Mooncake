@@ -101,8 +101,9 @@ class RealClient : public PyClient {
         return -1;
     };
 
-    int initAll(const std::string &protocol, const std::string &device_name,
-                size_t mount_segment_size = 1024 * 1024 * 16);  // Default 16MB
+    [[deprecated("use setup_real instead")]] int initAll(
+        const std::string &protocol, const std::string &device_name,
+        size_t mount_segment_size = 1024 * 1024 * 16);  // Default 16MB
 
     uint64_t alloc_from_mem_pool(size_t size) { return 0; };
 
